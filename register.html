@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+ <div class="container">
+     <div class="row justify-content-center">
+        <div class="col-4">
+            <form action="">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="surname">Surname</label>
+                    <input type="text" id="surname" class="form-control"  required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="form-control" required>
+                </div>
+
+                 <input type="submit" value="Register" class="btn btn-success" id="register">
+              &nbsp;
+              &nbsp;
+              &nbsp;
+              <a href="login.html" class="btn btn-primary">Login</a>
+              
+            </form>
+        </div>
+     </div>
+ </div>   
+
+ <script>
+     function Person(name,surname,email,password){
+         this.name = name;
+         this.surname =surname;
+         this.email = email;
+         this.password = password;
+     }
+
+     document.addEventListener("DOMContentLoaded",function(){
+         document.getElementById("register").addEventListener("click",function(e){
+             e.preventDefault();
+             let name = document.getElementById("name").value;
+             let surname = document.getElementById("surname").value;
+             let email = document.getElementById("email").value;
+             let password = document.getElementById("password").value;
+
+             let person = new Person(name,surname,email,password);
+
+
+             if("people" in localStorage){
+              let allPeople = JSON.parse(localStorage.people);
+              if("length" in allPeople){
+              allPeople.push(person);
+              localStorage.setItem("people",JSON.stringify(allPeople));
+              }
+              else{
+              let ms=[];
+              ms.push(allPeople);
+              ms.push(person);
+              localStorage.setItem("people",JSON.stringify(ms));
+              }
+             }
+             else{
+                  localStorage.setItem("people",JSON.stringify(person))
+             }
+         })
+     });
+ </script>
+</body>
+</html>
